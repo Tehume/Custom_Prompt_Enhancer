@@ -63,5 +63,13 @@ Entrada: prompt → salida: prompt mejorado, con diff frente al original y botó
   (los módulos/workers no funcionan bien desde file://).
 - GitHub Pages en repo privado requiere plan de pago y el sitio sería público igualmente.
 
+## Estado
+- Esqueleto hecho: entrada → reglas (pesos SD, muletillas, repeticiones, espacios) →
+  salida con diff, medidor T5 (exacto, verificado contra `tokenizers` de Rust) y aviso
+  de negaciones. Sin dependencias de CDN (vendor/). Pruebas: `npm test`.
+- Prompts de prueba inventados en samples/prompts.json, centrados en sujetos
+  (anatomía, pose, interacción, vestimenta); el estilo es secundario.
+
 ## Siguiente paso
-Esqueleto de la app + tokenizador T5 en el navegador; prueba de LLM local con prompts reales.
+Reglas de mayor valor (reordenar, etiquetas → prosa, negaciones → positivo, recorte a
+~450) y prueba de LLM local.

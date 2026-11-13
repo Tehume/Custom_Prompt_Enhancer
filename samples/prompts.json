@@ -1,0 +1,62 @@
+[
+  {
+    "id": "tag-soup",
+    "title": "Lista de etiquetas con muletillas",
+    "defects": ["lista de etiquetas", "muletillas SD", "peso (x:1.3)"],
+    "prompt": "1girl, solo, masterpiece, best quality, long red hair, green eyes, freckles, standing, hands on hips, leather jacket, white t-shirt, ripped jeans, city street, night, neon lights, 8k, highly detailed, (detailed face:1.3)"
+  },
+  {
+    "id": "weights-dupes",
+    "title": "Pesos y repeticiones",
+    "defects": ["pesos ((x)) y (x:1.4)", "segmento repetido", "muletillas SD"],
+    "prompt": "((athletic man)), (broad shoulders:1.4), short black beard, short black beard, sitting on a wooden bench, leaning forward, elbows on knees, grey hoodie, black joggers, white sneakers, park, morning light, best quality, ultra detailed"
+  },
+  {
+    "id": "negations",
+    "title": "Negaciones dentro del prompt",
+    "defects": ["«no X» en el prompt positivo"],
+    "prompt": "A young woman with curly brown hair and no makeup, sitting cross-legged on the floor, reading a book, no glasses, wearing an oversized knit sweater, no shoes, cozy living room, warm lamp light, no text, no watermark"
+  },
+  {
+    "id": "good-prose",
+    "title": "Prosa ya buena (control)",
+    "defects": [],
+    "prompt": "A tall elderly man with a silver beard and deep wrinkles stands at a workbench, gripping a chisel in his right hand while steadying a block of oak with his left. He wears a canvas apron over a rolled-sleeve flannel shirt. Soft window light falls across the workshop, catching sawdust in the air. Shot on a 50mm lens with a shallow depth of field."
+  },
+  {
+    "id": "style-first",
+    "title": "Estilo delante, sujetos al final",
+    "defects": ["orden: sujetos al final", "interacción ambigua"],
+    "prompt": "Watercolor illustration, soft pastel palette, loose brushstrokes, paper texture, golden hour, outdoor garden, two friends, one hugging the other from behind, laughing, the taller one with a short blonde bob in a yellow sundress, the shorter one with a black braid in denim overalls"
+  },
+  {
+    "id": "contradictions",
+    "title": "Contradicciones",
+    "defects": ["encuadre contradictorio", "pose contradictoria", "pelo contradictorio", "luz contradictoria"],
+    "prompt": "portrait of a woman, full body shot, close-up, sitting and standing, short hair, long flowing hair, night scene, bright midday sun, red dress"
+  },
+  {
+    "id": "anatomy-fillers",
+    "title": "Anatomía con muletillas de calidad",
+    "defects": ["«perfect anatomy/hands»", "pesos", "muletillas SD"],
+    "prompt": "A muscular dancer mid-leap, arms extended, (perfect anatomy:1.2), (perfect hands), toned legs, black leotard, bare feet, stage spotlight, smoke, dramatic lighting, masterpiece, trending on artstation"
+  },
+  {
+    "id": "couple",
+    "title": "Pareja con interacción",
+    "defects": ["lista de etiquetas", "segmento repetido", "muletillas SD"],
+    "prompt": "couple dancing, man in navy tuxedo, woman in emerald evening gown, his hand on her waist, her hand on his shoulder, looking into each other's eyes, ballroom, chandeliers, 4k, award winning photo, best quality, best quality"
+  },
+  {
+    "id": "vague",
+    "title": "Adjetivos vacíos",
+    "defects": ["adjetivos sin contenido visual", "intensificadores repetidos"],
+    "prompt": "girl sitting, nice pose, beautiful, pretty face, cool outfit, good lighting, amazing, very very detailed"
+  },
+  {
+    "id": "too-long",
+    "title": "Demasiado largo (> 512 tokens)",
+    "defects": ["supera ~450 y 512 tokens", "detalle secundario antes que la pose"],
+    "prompt": "A detailed full-body illustration of two adventurers resting at a mountain pass. The first is a broad-shouldered woman in her forties with weathered olive skin, a strong jaw, a thin scar crossing her left eyebrow, deep-set hazel eyes and thick dark eyebrows. Her black hair is shaved on the sides and gathered on top into a short braided crest held by a copper ring. She wears a sleeveless quilted gambeson in faded crimson, laced at the sides with leather cords, over a long-sleeved linen undershirt rolled to the elbows. Her forearms are wrapped in stained cloth bandages and she has a small tattoo of three dots on the back of her right hand. A wide leather belt with a brass buckle carries a pouch, a coiled rope, a waterskin and a short curved knife in a worn sheath. Her trousers are dark brown wool, tucked into knee-high boots with reinforced toes and scuffed heels. Over her shoulders hangs a heavy grey wool cloak with a fur-lined collar, pinned at the chest with an iron brooch shaped like a wolf head. The second adventurer is a slender young man with pale freckled skin, a narrow face, large grey eyes, a slightly crooked nose and messy shoulder-length copper hair tied loosely at the nape. He wears round wire-rimmed spectacles, a dark green hooded tunic with embroidered silver vines along the hem and cuffs, fingerless leather gloves, a satchel crossed over his chest stuffed with rolled maps and quills, slim grey trousers and soft ankle boots. A small brass compass hangs from a chain around his neck. In the background, jagged snowy peaks rise under a pale sky with drifting clouds, a narrow stone path winds down into a valley of dark pine forests, a crumbling watchtower stands on a distant ridge, and a few ravens circle overhead. The light is cold and clear, late afternoon, with long blue shadows on the snow and a warm glow on the edges of the clouds. The woman sits on a flat boulder with her legs apart, elbows resting on her knees, holding the waterskin in both hands, while the man stands beside her leaning on a wooden staff, one hand on her shoulder, pointing toward the valley with the other and smiling."
+  }
+]
