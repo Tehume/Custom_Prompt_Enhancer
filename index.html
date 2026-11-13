@@ -28,6 +28,21 @@
 
       <h3>Reglas</h3>
       <ul class="rules" id="rules"></ul>
+
+      <h3>Redacción en prosa con IA local (opcional)</h3>
+      <p class="hint">Convierte la lista de etiquetas en frases. El modelo se descarga una vez
+        (0,5–1,2 GB) y funciona en tu navegador. Puede inventar detalles: se marcan en el
+        resultado.</p>
+      <div class="llm-controls">
+        <select id="llm-model" aria-label="Modelo"></select>
+        <select id="llm-device" aria-label="Dispositivo">
+          <option value="webgpu">WebGPU</option>
+          <option value="wasm">CPU</option>
+        </select>
+        <button type="button" class="primary" id="llm-run">Redactar</button>
+        <button type="button" id="llm-clear" hidden>Quitar redacción</button>
+      </div>
+      <div class="status" id="llm-status" role="status"></div>
     </section>
 
     <section class="panel" aria-labelledby="out-title">
@@ -39,6 +54,7 @@
         </div>
       </div>
       <div class="output" id="output" aria-live="polite"></div>
+      <div class="source-tag" id="source"></div>
       <div class="meter" id="out-meter"></div>
       <div class="actions">
         <button type="button" class="primary" id="copy">Copiar</button>

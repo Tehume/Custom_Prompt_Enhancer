@@ -153,3 +153,11 @@ button.primary { background: var(--accent); color: var(--accent-text); border-co
 }
 
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Redacción con LLM */
+.hint { margin: 0 0 8px; font-size: 0.85rem; color: var(--muted); }
+.llm-controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.llm-controls select { max-width: 100%; }
+#llm-status { display: block; margin-top: 8px; min-height: 1.4em; }
+.novel { background: var(--soft); color: var(--soft-text); border-bottom: 2px dotted currentColor; border-radius: 3px; }
+.source-tag { font-size: 0.8rem; color: var(--muted); margin-top: 8px; }

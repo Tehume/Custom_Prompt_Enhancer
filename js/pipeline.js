@@ -5,11 +5,13 @@ import { RULES, findWarnings } from "./rules.js";
 export function enhance(text, enabled = new Set(RULES.map(r => r.id))) {
   let out = text;
   const changes = [];
+  const warnings = [];
   for (const rule of RULES) {
     if (!enabled.has(rule.id)) continue;
     const r = rule.apply(out);
     out = r.text;
     for (const c of r.changes) changes.push({ rule: rule.id, ...c });
+    if (r.warnings) warnings.push(...r.warnings);
   }
-  return { text: out, changes, warnings: findWarnings(out) };
+  return { text: out, changes, warnings: [...warnings, ...findWarnings(out)] };
 }

@@ -27,3 +27,12 @@ export function joinSegments(segments) {
 export function normalize(segment) {
   return segment.trim().toLowerCase().replace(/\s+/g, " ").replace(/[.;:!]+$/, "");
 }
+
+// ¿Está ya escrito en prosa? Media de palabras por segmento alta y al menos una frase
+// terminada en punto. Sirve para no pasar al LLM prompts que ya están bien redactados.
+export function looksLikeProse(text) {
+  const segs = splitSegments(text).map(s => s.trim()).filter(Boolean);
+  if (!segs.length) return false;
+  const words = segs.reduce((n, s) => n + s.split(/\s+/).length, 0);
+  return words / segs.length >= 6 && /[a-z][.!?](\s|$)/i.test(text);
+}

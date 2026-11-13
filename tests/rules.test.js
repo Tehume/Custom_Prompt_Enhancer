@@ -29,9 +29,37 @@ test("prosa correcta queda intacta", () => {
   assert.equal(r.changes.length, 0);
 });
 
-test("avisa de negaciones", () => {
-  const r = enhance("a woman with no makeup, no shoes");
-  assert.equal(r.warnings[0].id, "negation");
+test("avisa de negaciones desconocidas", () => {
+  const r = enhance("a woman, no umbrella, standing");
+  assert.ok(r.warnings.some(w => w.id === "negation"));
+});
+
+test("negaciones conocidas en positivo o fuera", () => {
+  const r = enhance("a woman with curly hair and no makeup, no shoes, no text, no glasses");
+  assert.equal(r.text, "a woman with curly hair and a bare face, barefoot");
+  assert.ok(!r.warnings.some(w => w.id === "negation"));
+});
+
+test("«no glasses» dentro de una frase no se borra", () => {
+  const r = enhance("a man who wears no glasses, standing");
+  assert.match(r.text, /no glasses/);
+});
+
+test("traduce etiquetas booru solo en listas", () => {
+  assert.equal(enhance("1girl, solo, looking_at_viewer, red hair").text,
+    "a young woman, alone, looking at the viewer, red hair");
+  assert.equal(enhance("solo").text, "solo");
+});
+
+test("contradicciones: se queda con la primera o avisa", () => {
+  const r = enhance("woman, full body shot, close-up, short hair, long flowing hair, sitting and standing");
+  assert.equal(r.text, "woman, full body shot, short hair, sitting and standing");
+  assert.ok(r.warnings.some(w => w.id === "conflict-posture"));
+});
+
+test("sin contradicción no toca nada", () => {
+  const t = "a woman sitting on a bench at night, long hair";
+  assert.equal(enhance(t).text, t);
 });
 
 test("reglas desactivadas no se aplican", () => {
