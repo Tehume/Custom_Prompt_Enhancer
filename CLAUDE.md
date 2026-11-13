@@ -42,6 +42,10 @@ narrativa, controlar la longitud en tokens y (opcional) traducir de español a i
   con seguridad (no se sabe si el modelo usa CLIP).
 - Tokenizador T5 de referencia: el de ComfyUI (ver Custom_Image_Generator/tools/t5_tokens.py).
 - Prompt negativo: existe en el plugin pero rinde peor; priorizar reformular en positivo.
+- Objetivo prioritario: ENHANCER (entrada → prompt mejorado). El análisis es apoyo,
+  no el producto.
+- Listas de descriptores desde cero; Custom_Image_Generator solo como referencia,
+  sin reutilizar código ni listas.
 - Público: usuarios con experiencia.
 - Interfaz en español; prompts de salida en inglés.
 
