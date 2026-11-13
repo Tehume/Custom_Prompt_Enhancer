@@ -49,5 +49,19 @@ narrativa, controlar la longitud en tokens y (opcional) traducir de español a i
 - Público: usuarios con experiencia.
 - Interfaz en español; prompts de salida en inglés.
 
+## MVP (acordado)
+Entrada: prompt → salida: prompt mejorado, con diff frente al original y botón de copiar.
+- Automático (reglas): limpiar muletillas SD/repeticiones/pesos; negativos → positivo;
+  reordenar por importancia; etiquetas → prosa con plantillas; ajustar a ~450 tokens T5.
+- Asistido: completar categorías ausentes con descriptores; nivel de intensidad.
+- Análisis (tokens, avisos) como apoyo.
+- Prueba temprana: 2-3 LLM locales pequeños (WebLLM, 1-3B) para reescritura de prosa.
+- Después: traducción ES→EN con glosario; variantes con sintaxis {a|b} de Perchance.
+
+## Infraestructura
+- Repositorio privado por ahora; desarrollo en local con servidor estático
+  (los módulos/workers no funcionan bien desde file://).
+- GitHub Pages en repo privado requiere plan de pago y el sitio sería público igualmente.
+
 ## Siguiente paso
-Cerrar el alcance del MVP.
+Esqueleto de la app + tokenizador T5 en el navegador; prueba de LLM local con prompts reales.
