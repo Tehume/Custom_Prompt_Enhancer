@@ -9,8 +9,7 @@
 
 import { Tokenizer } from "../vendor/tokenizers/tokenizers.min.mjs";
 
-export const SOFT_LIMIT = 450; // a partir de aquí el texto pierde peso
-export const HARD_LIMIT = 512; // a partir de aquí apenas llega al modelo
+export { SOFT_LIMIT, HARD_LIMIT } from "./limits.js";
 
 export class T5Counter {
   constructor(tokenizerJson, tokenizerConfig) {

@@ -1,6 +1,8 @@
 // Grupos de opciones excluyentes. Si en un prompt aparecen dos opciones distintas del
 // mismo grupo, es una contradicción. Cada opción: { name, re } (re sin flags; se usa con
 // "gi"). Las expresiones son deliberadamente estrechas para evitar falsos positivos.
+// singleSubject: solo tiene sentido con una persona (dos personas pueden estar una de pie y
+// otra sentada).
 
 export const CONFLICTS = [
   {
@@ -14,6 +16,7 @@ export const CONFLICTS = [
   {
     id: "posture",
     label: "postura",
+    singleSubject: true,
     options: [
       { name: "sentado", re: "\\b(?:sitting|seated|sits)\\b" },
       { name: "de pie", re: "\\b(?:standing|stands)\\b" },
@@ -23,6 +26,7 @@ export const CONFLICTS = [
   {
     id: "hair-length",
     label: "largo del pelo",
+    singleSubject: true,
     options: [
       { name: "pelo corto", re: "\\b(?:short|cropped|pixie[- ]cut)\\s+(?:[\\w-]+\\s+){0,2}hair\\b|\\bbuzz\\s*cut\\b" },
       { name: "pelo largo", re: "\\b(?:long|waist-length|very\\s+long)\\s+(?:[\\w-]+\\s+){0,2}hair\\b" },

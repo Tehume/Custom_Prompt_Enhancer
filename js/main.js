@@ -134,7 +134,7 @@ function renderOutput() {
 
 function update() {
   const input = $("input").value;
-  state.result = enhance(input, state.enabled);
+  state.result = enhance(input, state.enabled, { counter: state.counter });
   renderMeter("in-meter", input);
   renderMeter("out-meter", finalText());
   renderOutput();

@@ -3,10 +3,13 @@
 // Las reglas son conservadoras: si dudan, no tocan el texto y, como mucho, avisan.
 
 import { splitSegments, joinSegments, normalize } from "./segments.js";
+import { SOFT_LIMIT, HARD_LIMIT } from "./limits.js";
 import { FILLERS } from "./data/fillers.js";
 import { BOORU } from "./data/booru.js";
 import { NEGATIONS } from "./data/negations.js";
 import { CONFLICTS } from "./data/conflicts.js";
+import { orderSegments, labelOf, splitSentences, isSceneSentence } from "./categorize.js";
+import { looksLikeProse } from "./segments.js";
 
 const FILLER_SET = new Set(FILLERS);
 const isList = text => splitSegments(text).length >= 2;
@@ -134,6 +137,8 @@ const CONFLICT_RULES = CONFLICTS.map(g => ({
   options: g.options.map(o => ({ ...o, rx: new RegExp(o.re, "gi") })),
 }));
 
+const SEVERAL = /\b(?:two|three|four|couple|pair|friends|both|together|each other|one another|group|crowd)\b|\b(?:women|men|girls|boys|people|children)\b/i;
+
 // Busca opciones excluyentes. Se queda con la primera que aparece; las demás se quitan si
 // ocupan un segmento corto (≤ 4 palabras) y, si no, se avisa.
 const contradictions = {
@@ -144,8 +149,11 @@ const contradictions = {
   apply(text) {
     const changes = [];
     const warnings = [];
+    if (looksLikeProse(text)) return { text, changes }; // en prosa hay demasiado contexto
+    const several = SEVERAL.test(text);
     let segs = splitSegments(text);
     for (const g of CONFLICT_RULES) {
+      if (g.singleSubject && several) continue;
       const hits = [];
       segs.forEach((seg, si) => {
         for (const o of g.options) {
@@ -179,6 +187,73 @@ const contradictions = {
   },
 };
 
+// Ordena por importancia: sujeto, rasgos, pose, interacción, ropa, entorno, luz, cámara,
+// estilo. En listas mueve segmentos; en prosa solo lleva al final las frases de escena que
+// no mencionan a nadie.
+const reorder = {
+  id: "reorder",
+  label: "Ordenar por importancia",
+  description: "Sujeto → rasgos → pose → interacción → ropa → entorno → luz → cámara → " +
+    "estilo. El final del prompt pesa menos.",
+  apply(text) {
+    const changes = [];
+    if (looksLikeProse(text)) {
+      const sentences = splitSentences(text);
+      const scene = sentences.filter(isSceneSentence);
+      const rest = sentences.filter(s => !isSceneSentence(s));
+      const out = [...rest, ...scene].map(s => s.trim()).join(" ");
+      if (out !== sentences.map(s => s.trim()).join(" ")) {
+        changes.push({ before: "", after: "", note: "Frases de escena (entorno, luz, estilo) movidas al final" });
+        return { text: out, changes };
+      }
+      return { text, changes };
+    }
+    const segs = splitSegments(text).map(s => s.trim()).filter(Boolean);
+    if (segs.length < 3) return { text, changes };
+    const ordered = orderSegments(segs);
+    if (ordered.every((t, i) => t.i === i)) return { text, changes };
+    const moved = [...new Set(ordered.filter((t, i) => t.i !== i).map(t => labelOf(t.cat)))];
+    changes.push({ before: "", after: "", note: "Reordenado por importancia (" + moved.join(", ") + ")" });
+    return { text: ordered.map(t => t.s).join(", "), changes };
+  },
+};
+
+// Si pasa de ~450 tokens T5: en listas, quita desde el final los segmentos de cámara y
+// estilo (lo menos importante tras ordenar); en prosa solo avisa.
+const DROPPABLE = new Set(["camera", "style"]);
+const fitLength = {
+  id: "fit",
+  label: "Ajustar a ~450 tokens",
+  description: "Si el prompt es demasiado largo, quita del final detalles de cámara y estilo " +
+    "(solo en listas). En prosa solo avisa.",
+  apply(text, ctx = {}) {
+    const changes = [];
+    const warnings = [];
+    const counter = ctx.counter;
+    if (!counter) return { text, changes };
+    let n = counter.count(text);
+    if (n <= SOFT_LIMIT) return { text, changes };
+    if (!looksLikeProse(text)) {
+      const ordered = orderSegments(splitSegments(text).map(s => s.trim()).filter(Boolean));
+      while (n > SOFT_LIMIT && ordered.length && DROPPABLE.has(ordered.at(-1).cat)) {
+        const t = ordered.pop();
+        changes.push({ before: t.s, after: "", note: "Quitado para no pasar de " + SOFT_LIMIT + " tokens" });
+        text = ordered.map(x => x.s).join(", ");
+        n = counter.count(text);
+      }
+    }
+    if (n > SOFT_LIMIT) {
+      warnings.push({
+        id: "length",
+        text: `El prompt tiene ${n} tokens T5: a partir de ${SOFT_LIMIT} el final pierde peso` +
+          (n > HARD_LIMIT ? ` y lo que pasa de ${HARD_LIMIT} apenas llega al modelo` : "") +
+          ". Acorta descripciones secundarias (fondo, accesorios).",
+      });
+    }
+    return { text, changes, warnings };
+  },
+};
+
 const tidy = {
   id: "tidy",
   label: "Ordenar espacios y comas",
@@ -195,7 +270,8 @@ const tidy = {
   },
 };
 
-export const RULES = [stripWeights, translateBooru, removeFillers, positiveNegations, dedupe, contradictions, tidy];
+export const RULES = [stripWeights, translateBooru, removeFillers, positiveNegations, dedupe,
+  contradictions, reorder, tidy, fitLength];
 
 // ---------------------------------------------------------------------------------------
 // Avisos generales: no cambian el texto.
