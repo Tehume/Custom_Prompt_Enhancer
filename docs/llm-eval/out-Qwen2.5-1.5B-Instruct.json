@@ -1,0 +1,86 @@
+{
+ "model": "onnx-community/Qwen2.5-1.5B-Instruct",
+ "loadMs": 72022,
+ "results": [
+  {
+   "id": "tag-soup",
+   "input": "1girl, solo, long red hair, green eyes, freckles, standing, hands on hips, leather jacket, white t-shirt, ripped jeans, city street, night, neon lights, highly detailed, detailed face",
+   "output": "A young woman with long red hair and green eyes stands with her hands on her hips, wearing a black leather jacket over a white t-shirt and ripped jeans. She is standing on a city street at night, illuminated by neon lights. The scene is highly detailed and realistic.",
+   "ms": 10317,
+   "t5in": 50,
+   "t5out": 64
+  },
+  {
+   "id": "weights-dupes",
+   "input": "athletic man, broad shoulders, short black beard, sitting on a wooden bench, leaning forward, elbows on knees, grey hoodie, black joggers, white sneakers, park, morning light",
+   "output": "An athletic man with broad shoulders sits on a wooden bench, leaning forward with his elbows on knees. He wears a grey hoodie, black joggers, and white sneakers. The scene is set in a park during the morning with soft light.",
+   "ms": 9091,
+   "t5in": 49,
+   "t5out": 63
+  },
+  {
+   "id": "negations",
+   "input": "A young woman with curly brown hair and no makeup, sitting cross-legged on the floor, reading a book, no glasses, wearing an oversized knit sweater, no shoes, cozy living room, warm lamp light, no text, no watermark",
+   "output": "A young woman with curly brown hair and no makeup, sitting cross-legged on the floor, reading a book, barefoot, wearing an oversized knit sweater, no shoes, in a cozy living room with a warm lamp light, no text, no watermark.",
+   "ms": 9382,
+   "t5in": 54,
+   "t5out": 61
+  },
+  {
+   "id": "good-prose",
+   "input": "A tall elderly man with a silver beard and deep wrinkles stands at a workbench, gripping a chisel in his right hand while steadying a block of oak with his left. He wears a canvas apron over a rolled-sleeve flannel shirt. Soft window light falls across the workshop, catching sawdust in the air. Shot on a 50mm lens with a shallow depth of field.",
+   "output": "A tall elderly man with a silver beard and deep wrinkles stands at a workbench, gripping a chisel in his right hand while steadying a block of oak with his left. He wears a canvas apron over a rolled-sleeve flannel shirt. Soft window light falls across the workshop, catching sawdust in the air. Shot on a 50mm lens with a shallow depth of field.",
+   "ms": 13894,
+   "t5in": 107,
+   "t5out": 107
+  },
+  {
+   "id": "style-first",
+   "input": "Watercolor illustration, soft pastel palette, loose brushstrokes, paper texture, golden hour, outdoor garden, two friends, one hugging the other from behind, laughing, the taller one with a short blonde bob in a yellow sundress, the shorter one with a black braid in denim overalls",
+   "output": "A soft pastel watercolor illustration features two friends outdoors in an outdoor garden. The taller friend hugs the shorter friend from behind, both laughing. The taller friend has a short blonde bob in a yellow sundress, while the shorter friend has a black braid in denim overalls. The scene is captured during the golden hour sunlight.",
+   "ms": 11602,
+   "t5in": 67,
+   "t5out": 73
+  },
+  {
+   "id": "contradictions",
+   "input": "portrait of a woman, full body shot, close-up, sitting and standing, short hair, long flowing hair, night scene, bright midday sun, red dress",
+   "output": "A young woman sits at a desk, her short hair framing her face. She stands beside a window, her long flowing hair swaying in the breeze. The scene is set against a bright midday sun, casting warm light on the room. A red dress hangs from a nearby tree, adding to the dramatic nighttime setting.",
+   "ms": 11080,
+   "t5in": 36,
+   "t5out": 77
+  },
+  {
+   "id": "anatomy-fillers",
+   "input": "A muscular dancer mid-leap, arms extended, perfect anatomy, perfect hands, toned legs, black leotard, bare feet, stage spotlight, smoke, dramatic lighting",
+   "output": "A muscular dancer leaps into the air, arms extended wide, showcasing her perfect anatomy. Her toned legs and defined muscles are highlighted by the black leotard she wears. Barefoot, she stands on a stage surrounded by a stage spotlight and swirling smoke, creating a dramatic lighting effect.",
+   "ms": 10477,
+   "t5in": 41,
+   "t5out": 71
+  },
+  {
+   "id": "couple",
+   "input": "couple dancing, man in navy tuxedo, woman in emerald evening gown, his hand on her waist, her hand on his shoulder, looking into each other's eyes, ballroom, chandeliers, award winning photo",
+   "output": "A young woman in an emerald evening gown is dancing with a young man in a navy tuxedo. His hand rests on her waist, while hers touches his shoulder. They look into each other's eyes, surrounded by chandeliers in a ballroom. This award-winning photo captures their intimate moment.",
+   "ms": 10984,
+   "t5in": 53,
+   "t5out": 77
+  },
+  {
+   "id": "vague",
+   "input": "girl sitting, nice pose, beautiful, pretty face, cool outfit, good lighting",
+   "output": "A young woman sits in a comfortable position, her face is beautiful and her features are well-defined. She wears a stylish outfit that complements her appearance, and the lighting highlights her features beautifully. The setting is a cozy room with soft lighting, and the camera captures the scene from a flattering angle. The overall style is modern and elegant.",
+   "ms": 11767,
+   "t5in": 17,
+   "t5out": 78
+  },
+  {
+   "id": "too-long",
+   "input": "A detailed full-body illustration of two adventurers resting at a mountain pass. The first is a broad-shouldered woman in her forties with weathered olive skin, a strong jaw, a thin scar crossing her left eyebrow, deep-set hazel eyes and thick dark eyebrows. Her black hair is shaved on the sides and gathered on top into a short braided crest held by a copper ring. She wears a sleeveless quilted gambeson in faded crimson, laced at the sides with leather cords, over a long-sleeved linen undershirt rolled to the elbows. Her forearms are wrapped in stained cloth bandages and she has a small tattoo of three dots on the back of her right hand. A wide leather belt with a brass buckle carries a pouch, a coiled rope, a waterskin and a short curved knife in a worn sheath. Her trousers are dark brown wool, tucked into knee-high boots with reinforced toes and scuffed heels. Over her shoulders hangs a heavy grey wool cloak with a fur-lined collar, pinned at the chest with an iron brooch shaped like a wolf head. The second adventurer is a slender young man with pale freckled skin, a narrow face, large grey eyes, a slightly crooked nose and messy shoulder-length copper hair tied loosely at the nape. He wears round wire-rimmed spectacles, a dark green hooded tunic with embroidered silver vines along the hem and cuffs, fingerless leather gloves, a satchel crossed over his chest stuffed with rolled maps and quills, slim grey trousers and soft ankle boots. A small brass compass hangs from a chain around his neck. In the background, jagged snowy peaks rise under a pale sky with drifting clouds, a narrow stone path winds down into a valley of dark pine forests, a crumbling watchtower stands on a distant ridge, and a few ravens circle overhead. The light is cold and clear, late afternoon, with long blue shadows on the snow and a warm glow on the edges of the clouds. The woman sits on a flat boulder with her legs apart, elbows resting on her knees, holding the waterskin in both hands, while the man stands beside her leaning on a wooden staff, one hand on her shoulder, pointing toward the valley with the other and smiling.",
+   "output": "Two adventurers rest at a mountain pass. The woman is a broad-shouldered woman in her forties with weathered olive skin, a strong jaw, a thin scar crossing her left eyebrow, deep-set hazel eyes, thick dark eyebrows, black hair shaved on the sides and gathered on top into a short braided crest held by a copper ring. She wears a sleeveless quilted gambeson in faded crimson, laced at the sides with leather cords, over a long-sleeved linen undershirt rolled to the elbows. Her forearms are wrapped in stained cloth bandages and she has a small tattoo of three dots on the back of her right hand. A wide leather belt with a brass buckle carries a pouch, a coiled rope, a waterskin and a short curved knife in a worn sheath. Her trousers are dark brown wool, tucked into knee-high boots with reinforced toes and scuffed heels. Over her shoulders hangs a heavy grey wool cloak with a fur-lined collar, pinned at the chest with an iron brooch shaped like a wolf head. The man is a slender young man with pale freckled skin, a narrow face, large grey eyes, a slightly crooked nose and messy shoulder-length copper hair tied loosely at the nape. He wears round wire-rimmed spectacles, a dark green hooded tunic with embroidered silver vines along the hem and cuffs, fingerless leather gloves, a satchel crossed over his chest stuffed with rolled maps and quills, slim grey trousers and soft ankle boots. A small brass compass hangs from a chain",
+   "ms": 65898,
+   "t5in": 590,
+   "t5out": 419
+  }
+ ]
+}

@@ -1,0 +1,86 @@
+{
+ "model": "onnx-community/gemma-3-1b-it-ONNX",
+ "loadMs": 31730,
+ "results": [
+  {
+   "id": "tag-soup",
+   "input": "1girl, solo, long red hair, green eyes, freckles, standing, hands on hips, leather jacket, white t-shirt, ripped jeans, city street, night, neon lights, highly detailed, detailed face",
+   "output": "A young woman with long, vibrant red hair stands confidently in a busy city street at night. She has delicate green eyes and a scattering of freckles across her nose. She’s wearing a worn leather jacket over a white t-shirt, and ripped blue jeans. Her hands are placed on her hips, creating a slightly defensive posture. A neon-lit cityscape surrounds her, illuminated by glowing signs. She’s meticulously detailed, with a highly rendered face.  She is alone and stands purposefully.",
+   "ms": 14537,
+   "t5in": 50,
+   "t5out": 118
+  },
+  {
+   "id": "weights-dupes",
+   "input": "athletic man, broad shoulders, short black beard, sitting on a wooden bench, leaning forward, elbows on knees, grey hoodie, black joggers, white sneakers, park, morning light",
+   "output": "A muscular man sits comfortably on a weathered wooden bench in a park during the early morning. He has a short, neatly trimmed black beard. He’s wearing a grey hoodie and black running-style joggers. White sneakers complete his attire. He’s leaning slightly forward, his elbows resting on his knees. A white shirt is visible underneath the hoodie. He’s holding his hands, and he’s looking slightly down at the ground. The scene is bathed in soft, golden morning light. The camera is a medium shot, focusing on the man’s athletic build and relaxed posture. The style is realistic and slightly cinematic.",
+   "ms": 15708,
+   "t5in": 49,
+   "t5out": 158
+  },
+  {
+   "id": "negations",
+   "input": "A young woman with curly brown hair and no makeup, sitting cross-legged on the floor, reading a book, no glasses, wearing an oversized knit sweater, no shoes, cozy living room, warm lamp light, no text, no watermark",
+   "output": "A young woman with long, curly brown hair sits cross-legged on the floor, engrossed in a book. She has a bare face and is wearing an oversized, knitted sweater, no shoes. She’s comfortably seated in a cozy living room, illuminated by a warm lamp light. A barefoot posture suggests a relaxed state. She’s wearing a simple, oversized knit sweater. No text, no watermark.",
+   "ms": 11469,
+   "t5in": 54,
+   "t5out": 105
+  },
+  {
+   "id": "good-prose",
+   "input": "A tall elderly man with a silver beard and deep wrinkles stands at a workbench, gripping a chisel in his right hand while steadying a block of oak with his left. He wears a canvas apron over a rolled-sleeve flannel shirt. Soft window light falls across the workshop, catching sawdust in the air. Shot on a 50mm lens with a shallow depth of field.",
+   "output": "A tall, elderly man with a prominent silver beard and deeply etched wrinkles stands attentively at a wooden workbench. He’s holding a chisel firmly in his right hand, securing a block of oak with his left. He wears a worn canvas apron over a rolled-sleeve flannel shirt. Soft, diffused window light illuminates the workshop, creating a hazy effect as sawdust drifts upwards. Taken on a 50mm lens with a shallow depth of field. The man is a solo figure, focused intently on the task. He has a bare face, and his expression is serious. He’s wearing a canvas apron over a rolled-sleeve flannel shirt.",
+   "ms": 16738,
+   "t5in": 107,
+   "t5out": 188
+  },
+  {
+   "id": "style-first",
+   "input": "Watercolor illustration, soft pastel palette, loose brushstrokes, paper texture, golden hour, outdoor garden, two friends, one hugging the other from behind, laughing, the taller one with a short blonde bob in a yellow sundress, the shorter one with a black braid in denim overalls",
+   "output": "A watercolor illustration depicting two friends enjoying a sunny afternoon. A young woman with a blonde bob in a yellow sundress is hugging a younger man with a short braid in denim overalls. He’s laughing as she embraces him from behind. The taller man has a soft, pastel palette, loose brushstrokes, and a paper texture. He wears a simple, barefoot appearance. The setting is an outdoor garden bathed in golden hour light. A solo figure is capturing the scene with a camera, exhibiting a gentle style. The overall mood is joyful and affectionate.",
+   "ms": 14325,
+   "t5in": 67,
+   "t5out": 137
+  },
+  {
+   "id": "contradictions",
+   "input": "portrait of a woman, full body shot, close-up, sitting and standing, short hair, long flowing hair, night scene, bright midday sun, red dress",
+   "output": "A woman is the primary subject. She is fully visible in a full-body shot. She is seated, but also stands upright. Her hair is short and flowing, a cascade of dark hair. She has a pale complexion. She is wearing a vibrant red dress. A bright midday sun illuminates the scene. The lighting is strong and direct. The camera is a shallow depth of field, focusing on her face. The style is realistic and slightly cinematic. A grainy texture is suggested.",
+   "ms": 12294,
+   "t5in": 36,
+   "t5out": 110
+  },
+  {
+   "id": "anatomy-fillers",
+   "input": "A muscular dancer mid-leap, arms extended, perfect anatomy, perfect hands, toned legs, black leotard, bare feet, stage spotlight, smoke, dramatic lighting",
+   "output": "A muscular dancer mid-leap, arms extended, perfectly proportioned body, and a flawless physique. She has a toned lower body, sleek black leotard, and bare feet. She is performing a dramatic leap on a stage, illuminated by a spotlight.  The scene is filled with dramatic, volumetric lighting, captured with a shallow depth of field. The camera focuses on her dynamic pose, emphasizing the upward motion of her limbs. A bare face is visible. She is alone.  A subtle haze of smoke surrounds her.  The overall style is realistic and dramatic, reminiscent of a cinematic composition.  Booru tags: 1girl, solo, black leotard, bare feet, stage spotlight, dramatic lighting.",
+   "ms": 17223,
+   "t5in": 41,
+   "t5out": 172
+  },
+  {
+   "id": "couple",
+   "input": "couple dancing, man in navy tuxedo, woman in emerald evening gown, his hand on her waist, her hand on his shoulder, looking into each other's eyes, ballroom, chandeliers, award winning photo",
+   "output": "A young man in a navy tuxedo is dancing gracefully with a woman in an emerald evening gown. He holds her waist with his hand, and she gently touches his shoulder. They are looking intently at each other, their eyes locked in a moment of affection. The scene takes place in a grand ballroom, illuminated by countless chandeliers. Soft, warm lighting highlights their faces and the intricate details of their clothing – the man’s tailored tuxedo, the woman’s shimmering emerald gown. They are posed in a classic dance formation, with a slight tilt to their heads. The camera focuses on their expressions of love and admiration. A professional photograph style, reminiscent of a winning competition.",
+   "ms": 16411,
+   "t5in": 53,
+   "t5out": 173
+  },
+  {
+   "id": "vague",
+   "input": "girl sitting, nice pose, beautiful, pretty face, cool outfit, good lighting",
+   "output": "A young woman is sitting gracefully. She has a lovely, relaxed pose, looking slightly forward. Her face is attractive, with a delicate beauty. She has long, flowing brown hair that cascades down her back. She’s wearing a stylish, fitted outfit – a dark blue top paired with a pair of denim shorts. A subtle glow emanates from her, creating a warm, inviting light. The camera focuses on her, capturing a flattering angle. The style is realistic and slightly cinematic, with a focus on soft details. A barefoot appearance is suggested.  The girl is alone.",
+   "ms": 15005,
+   "t5in": 17,
+   "t5out": 139
+  },
+  {
+   "id": "too-long",
+   "input": "A detailed full-body illustration of two adventurers resting at a mountain pass. The first is a broad-shouldered woman in her forties with weathered olive skin, a strong jaw, a thin scar crossing her left eyebrow, deep-set hazel eyes and thick dark eyebrows. Her black hair is shaved on the sides and gathered on top into a short braided crest held by a copper ring. She wears a sleeveless quilted gambeson in faded crimson, laced at the sides with leather cords, over a long-sleeved linen undershirt rolled to the elbows. Her forearms are wrapped in stained cloth bandages and she has a small tattoo of three dots on the back of her right hand. A wide leather belt with a brass buckle carries a pouch, a coiled rope, a waterskin and a short curved knife in a worn sheath. Her trousers are dark brown wool, tucked into knee-high boots with reinforced toes and scuffed heels. Over her shoulders hangs a heavy grey wool cloak with a fur-lined collar, pinned at the chest with an iron brooch shaped like a wolf head. The second adventurer is a slender young man with pale freckled skin, a narrow face, large grey eyes, a slightly crooked nose and messy shoulder-length copper hair tied loosely at the nape. He wears round wire-rimmed spectacles, a dark green hooded tunic with embroidered silver vines along the hem and cuffs, fingerless leather gloves, a satchel crossed over his chest stuffed with rolled maps and quills, slim grey trousers and soft ankle boots. A small brass compass hangs from a chain around his neck. In the background, jagged snowy peaks rise under a pale sky with drifting clouds, a narrow stone path winds down into a valley of dark pine forests, a crumbling watchtower stands on a distant ridge, and a few ravens circle overhead. The light is cold and clear, late afternoon, with long blue shadows on the snow and a warm glow on the edges of the clouds. The woman sits on a flat boulder with her legs apart, elbows resting on her knees, holding the waterskin in both hands, while the man stands beside her leaning on a wooden staff, one hand on her shoulder, pointing toward the valley with the other and smiling.",
+   "output": "A detailed full-body illustration of two adventurers resting at a mountain pass. The first is a broad-shouldered woman in her forties with weathered olive skin, a strong jaw, a thin scar crossing her left eyebrow, deep-set hazel eyes and thick dark eyebrows. Her black hair is shaved on the sides and gathered into a short braided crest held by a copper ring. She wears a sleeveless quilted gambeson in faded crimson, laced at the sides with leather cords, over a long-sleeved linen undershirt rolled to the elbows. Her forearms are wrapped in stained cloth bandages and she has a small tattoo of three dots on the back of her right hand. A wide leather belt with a brass buckle carries a pouch, a coiled rope, a waterskin, and a short curved knife in a worn sheath. Her trousers are dark brown wool, tucked into knee-high boots with reinforced toes and scuffed heels. Over her shoulders hangs a heavy grey wool cloak with a fur-lined collar, pinned at the chest with an iron brooch shaped like a wolf head. The second adventurer is a slender young man with pale freckled skin, a narrow face, large grey eyes, a slightly crooked nose and messy shoulder-length copper hair tied loosely at the nape. He wears round wire-rimmed spectacles, a dark green hooded tunic with embroidered silver vines along the hem and cuffs, fingerless leather gloves, a satchel crossed over his chest stuffed with rolled maps and quills, slim grey trousers and soft ankle boots. A small brass compass hangs from a chain around his neck.",
+   "ms": 53855,
+   "t5in": 590,
+   "t5out": 434
+  }
+ ]
+}

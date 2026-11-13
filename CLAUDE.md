@@ -68,8 +68,11 @@ Entrada: prompt → salida: prompt mejorado, con diff frente al original y botó
   salida con diff, medidor T5 (exacto, verificado contra `tokenizers` de Rust) y aviso
   de negaciones. Sin dependencias de CDN (vendor/). Pruebas: `npm test`.
 - Prompts de prueba inventados en samples/prompts.json, centrados en sujetos
-  (anatomía, pose, interacción, vestimenta); el estilo es secundario.
+  (anatomía, pose, interacción, vestimenta); el estilo es secundario. Etiquetas booru
+  (1girl, solo…) aparecen a veces: traducirlas a texto.
+- Prueba de LLM local hecha (docs/llm-eval.md): mejoran la prosa pero no son fiables solos
+  (inventan, no resuelven contradicciones ni negaciones). Candidatos: Qwen2.5-1.5B-Instruct
+  y LFM2-1.2B. Laboratorio en el navegador: lab/llm.html.
 
 ## Siguiente paso
-Reglas de mayor valor (reordenar, etiquetas → prosa, negaciones → positivo, recorte a
-~450) y prueba de LLM local.
+Pendiente de decidir con el usuario tras la prueba de LLM (ver docs/llm-eval.md).
