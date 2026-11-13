@@ -28,9 +28,15 @@ narrativa, controlar la longitud en tokens y (opcional) traducir de español a i
 - Arquitectura propuesta: web estática sin backend (p. ej. GitHub Pages), coste cero.
 - Referente existente: promptoMANIA (constructor de prompts sin IA).
 
-## Preguntas abiertas
-1. ¿Se aceptan modelos locales en el navegador o todo ha de ser con reglas?
-2. Versión exacta de FLUX (1 dev/schnell u otra).
+## Decisiones (brainstorming)
+- Se aceptan modelos locales en el navegador (Transformers.js / WebLLM).
+- Modelo de destino: FLUX.1 schnell, posiblemente Chroma (derivado de schnell).
+  Diseñar con "perfiles de modelo" configurables:
+  - schnell: CLIP 77 + T5 256 tokens; sin negative prompt (destilado).
+  - Chroma: solo T5 (sin CLIP), max_sequence_length 512 por defecto en diffusers;
+    admite negative prompt (usa CFG real).
+- Público: usuarios con experiencia.
+- Interfaz en español; prompts de salida en inglés.
 
 ## Siguiente paso
-Brainstorming de funcionalidades.
+Cerrar el alcance del MVP.
