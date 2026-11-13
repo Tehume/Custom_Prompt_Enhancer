@@ -75,6 +75,10 @@ Entrada: prompt → salida: prompt mejorado, con diff frente al original y botó
 - Reglas nuevas: booru → texto, negaciones con diccionario, contradicciones (se queda con
   la primera o avisa). Redacción opcional con LLM integrada en la app (js/llm/), con marca
   de posibles invenciones. Ronda 2 (docs/llm-eval.md): LFM2-1.2B predeterminado.
+- Orden por importancia (sujeto → encuadre → rasgos → interacción → pose → ropa → entorno →
+  luz → cámara → estilo; en prosa solo mueve al final frases de escena) y ajuste a ~450
+  tokens (en listas quita cámara/estilo del final; en prosa avisa).
+- Publicación: GitHub Pages desde la rama de trabajo, con el repo público temporalmente.
 
 ## Arquitectura acordada (tras la prueba de LLM)
 1. Reglas primero (deterministas): muletillas, pesos, negaciones con diccionario,
@@ -86,5 +90,5 @@ Entrada: prompt → salida: prompt mejorado, con diff frente al original y botó
 4. Prompts largos: no reescribirlos enteros (por frases o solo reordenar).
 
 ## Siguiente paso
-Publicar para probar en la tablet del usuario (Lenovo Idea Tab, Mali-G57, Android) y medir.
-Después: reordenar por importancia, recorte a ~450 tokens, descriptores por categoría.
+Medir en la tablet del usuario (Lenovo Idea Tab, Mali-G57, 8 GB, Android) con lab/llm.html.
+Después: descriptores por categoría (completar lo que falta) y nivel de intensidad.
