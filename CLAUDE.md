@@ -30,11 +30,11 @@ narrativa, controlar la longitud en tokens y (opcional) traducir de español a i
 
 ## Decisiones (brainstorming)
 - Se aceptan modelos locales en el navegador (Transformers.js / WebLLM).
-- Modelo de destino: FLUX.1 schnell, posiblemente Chroma (derivado de schnell).
-  Diseñar con "perfiles de modelo" configurables:
-  - schnell: CLIP 77 + T5 256 tokens; sin negative prompt (destilado).
-  - Chroma: solo T5 (sin CLIP), max_sequence_length 512 por defecto en diffusers;
-    admite negative prompt (usa CFG real).
+- Modelo de destino: FLUX (se descarta Chroma). Perfil principal FLUX.1 schnell:
+  CLIP 77 + T5 256 tokens; sin negative prompt efectivo (destilado).
+- Generación en Perchance (generador web basado en su plugin text-to-image).
+  Pendiente verificar: modelo exacto, si hay campo negativo, si los estilos
+  añaden texto al prompt (perchance.org devuelve 403 a fetch automático).
 - Público: usuarios con experiencia.
 - Interfaz en español; prompts de salida en inglés.
 
