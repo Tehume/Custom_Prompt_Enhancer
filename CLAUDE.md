@@ -71,8 +71,10 @@ Entrada: prompt → salida: prompt mejorado, con diff frente al original y botó
   (anatomía, pose, interacción, vestimenta); el estilo es secundario. Etiquetas booru
   (1girl, solo…) aparecen a veces: traducirlas a texto.
 - Prueba de LLM local hecha (docs/llm-eval.md): mejoran la prosa pero no son fiables solos
-  (inventan, no resuelven contradicciones ni negaciones). Candidatos: Qwen2.5-1.5B-Instruct
-  y LFM2-1.2B. Laboratorio en el navegador: lab/llm.html.
+  (inventan, no resuelven contradicciones ni negaciones). Laboratorio: lab/llm.html.
+- Reglas nuevas: booru → texto, negaciones con diccionario, contradicciones (se queda con
+  la primera o avisa). Redacción opcional con LLM integrada en la app (js/llm/), con marca
+  de posibles invenciones. Ronda 2 (docs/llm-eval.md): LFM2-1.2B predeterminado.
 
 ## Arquitectura acordada (tras la prueba de LLM)
 1. Reglas primero (deterministas): muletillas, pesos, negaciones con diccionario,
@@ -84,5 +86,5 @@ Entrada: prompt → salida: prompt mejorado, con diff frente al original y botó
 4. Prompts largos: no reescribirlos enteros (por frases o solo reordenar).
 
 ## Siguiente paso
-Reglas nuevas (negaciones, contradicciones, booru) e integración del LLM opcional.
-Pendiente: medir el laboratorio en el dispositivo del usuario (tablet).
+Publicar para probar en la tablet del usuario (Lenovo Idea Tab, Mali-G57, Android) y medir.
+Después: reordenar por importancia, recorte a ~450 tokens, descriptores por categoría.

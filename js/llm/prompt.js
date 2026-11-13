@@ -29,12 +29,12 @@ export const EXAMPLES = [
 
 // Modelos candidatos (ONNX, 4 bits). mb: descarga aproximada con WebGPU (q4f16).
 export const MODELS = [
-  { id: "onnx-community/LFM2-1.2B-ONNX", label: "LFM2 1.2B", mb: 760, license: "LFM Open License" },
+  { id: "onnx-community/LFM2-1.2B-ONNX", label: "LFM2 1.2B (recomendado)", mb: 760, license: "LFM Open License" },
   { id: "onnx-community/Qwen2.5-1.5B-Instruct", label: "Qwen2.5 1.5B", mb: 1220, license: "Apache-2.0" },
-  { id: "onnx-community/LFM3-1.7B-ONNX", label: "LFM3 1.7B", mb: 1090, license: "LFM Open License" },
-  { id: "onnx-community/LFM2-700M-ONNX", label: "LFM2 700M (ligero)", mb: 500, license: "LFM Open License" },
-  { id: "onnx-community/Qwen2.5-0.5B-Instruct", label: "Qwen2.5 0.5B (ligero)", mb: 480, license: "Apache-2.0" },
+  { id: "onnx-community/LFM2-700M-ONNX", label: "LFM2 700M (ligero, inventa más)", mb: 500, license: "LFM Open License" },
 ];
+// Descartados (docs/llm-eval.md): Gemma 3 1B y Qwen2.5 0.5B (inventan o entran en bucle),
+// Qwen3 1.7B (no reescribe), LFM3 1.7B (Transformers.js 4.3.1 aún no lo admite).
 
 export function buildMessages(modelId, prompt) {
   const msgs = [{ role: "system", content: SYSTEM }];

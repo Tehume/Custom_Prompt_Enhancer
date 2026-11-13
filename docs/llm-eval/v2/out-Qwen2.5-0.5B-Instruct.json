@@ -1,0 +1,116 @@
+{
+ "model": "onnx-community/Qwen2.5-0.5B-Instruct",
+ "promptVersion": 2,
+ "loadMs": 32498,
+ "results": [
+  {
+   "id": "tag-soup",
+   "input": "a young woman, alone, long red hair, green eyes, freckles, standing, hands on hips, leather jacket, white t-shirt, ripped jeans, city street, night, neon lights, highly detailed, detailed face",
+   "output": "A young woman stands alone on a city street at night, her long red hair tied in a ponytail. She has green eyes and freckles. She is standing on a leather jacket and a white t-shirt. Her hands are on her hips. She is wearing a ripped jeans. She is dressed in a city street outfit. She is wearing a high-end outfit. She is dressed in a high-end outfit. She is dressed in a high-end outfit. She is dressed in a high-end outfit. She is dressed in a high-end outfit. She is dressed in a high-end outfit. She is dressed in a high-end outfit. She is dressed in a high-end outfit. She is dressed in a high-end outfit. She is dressed in a high-end outfit. She is dressed in a high-end outfit. She is dressed in a high-end outfit. She is dressed in a high-end outfit. She is dressed in a high-end outfit. She is dressed in a high-end outfit. She is dressed in a high-end outfit. She is dressed in a high-end outfit. She is dressed in a high-end outfit. She is dressed in a high-end outfit. She is dressed in a high-end outfit. She is dressed in a high-end outfit. She is dressed in a high-end outfit. She is dressed in a high-end outfit. She is dressed in a high-end outfit. She is dressed in a high-end outfit. She is dressed in a high-end outfit. She is dressed in a high-end outfit. She is dressed in a high-end outfit. She is dressed in a high-end outfit. She is dressed in a high-end outfit. She is dressed in a high-end outfit. She is dressed in a high-end outfit. She is dressed in a high-end outfit. She is dressed in a high-end outfit. She is dressed in a high-end outfit. She is dressed in a high-end outfit. She is dressed in a high-end outfit. She",
+   "novel": [
+    "tied",
+    "ponytail",
+    "outfit",
+    "high-end"
+   ],
+   "ms": 27173,
+   "t5in": 52,
+   "t5out": 485
+  },
+  {
+   "id": "weights-dupes",
+   "input": "athletic man, broad shoulders, short black beard, sitting on a wooden bench, leaning forward, elbows on knees, grey hoodie, black joggers, white sneakers, park, morning light",
+   "output": "An athletic man with broad shoulders, short black beard sits on a wooden bench, leaning forward. He has a grey hoodie, black joggers, and white sneakers. The scene is in a park at dawn, with a light morning light.",
+   "novel": [
+    "dawn"
+   ],
+   "ms": 3513,
+   "t5in": 49,
+   "t5out": 62
+  },
+  {
+   "id": "negations",
+   "input": "A young woman with curly brown hair and a bare face, sitting cross-legged on the floor, reading a book, wearing an oversized knit sweater, barefoot, cozy living room, warm lamp light",
+   "output": "A young woman with curly brown hair and a bare face sits cross-legged on the floor, reading a book. She wears an oversized knit sweater and a cozy sweater. The scene is a cozy living room with a warm lamp light, shot as a pencil sketch.",
+   "novel": [
+    "pencil",
+    "sketch"
+   ],
+   "ms": 3571,
+   "t5in": 48,
+   "t5out": 66
+  },
+  {
+   "id": "good-prose",
+   "input": "A tall elderly man with a silver beard and deep wrinkles stands at a workbench, gripping a chisel in his right hand while steadying a block of oak with his left. He wears a canvas apron over a rolled-sleeve flannel shirt. Soft window light falls across the workshop, catching sawdust in the air. Shot on a 50mm lens with a shallow depth of field.",
+   "skipped": "prosa",
+   "t5in": 107
+  },
+  {
+   "id": "style-first",
+   "input": "Watercolor illustration, soft pastel palette, loose brushstrokes, paper texture, golden hour, outdoor garden, two friends, one hugging the other from behind, laughing, the taller one with a short blonde bob in a yellow sundress, the shorter one with a black braid in denim overalls",
+   "output": "Two friends, one hugging the other from behind, laughing in an outdoor garden. Watercolor illustration on paper with a soft pastel palette, loose brushstrokes. Golden hour, shot outdoors.",
+   "novel": [],
+   "ms": 3162,
+   "t5in": 67,
+   "t5out": 41
+  },
+  {
+   "id": "contradictions",
+   "input": "portrait of a woman, full body shot, sitting and standing, short hair, night scene, red dress",
+   "output": "A woman with full body shot sits and stands, her short hair darkens in the night. She wears a red dress. The scene is a night scene, shot from a full body shot.",
+   "novel": [
+    "darkens"
+   ],
+   "ms": 3000,
+   "t5in": 23,
+   "t5out": 46
+  },
+  {
+   "id": "anatomy-fillers",
+   "input": "A muscular dancer mid-leap, arms extended, perfect anatomy, perfect hands, toned legs, black leotard, bare feet, stage spotlight, smoke, dramatic lighting",
+   "output": "A muscular dancer mid-leap, arms extended, perfect anatomy, perfect hands, toned legs. He wears a black leotard and bare feet. The scene is set against a stage spotlight, with smoke and dramatic lighting.",
+   "novel": [
+    "against"
+   ],
+   "ms": 3562,
+   "t5in": 41,
+   "t5out": 55
+  },
+  {
+   "id": "couple",
+   "input": "couple dancing, man in navy tuxedo, woman in emerald evening gown, his hand on her waist, her hand on his shoulder, looking into each other's eyes, ballroom, chandeliers, award winning photo",
+   "output": "A man in navy tuxedo and a woman in emerald evening gown dance together, their hands on each other's waists. They look into each other's eyes, their faces illuminated by chandeliers. The scene is in a ballroom, shot as a photograph.",
+   "novel": [
+    "dance",
+    "together",
+    "faces",
+    "illuminated",
+    "photograph"
+   ],
+   "ms": 4248,
+   "t5in": 53,
+   "t5out": 68
+  },
+  {
+   "id": "vague",
+   "input": "girl sitting, nice pose, beautiful, pretty face, cool outfit, good lighting",
+   "output": "A girl sitting in a nice pose, wearing a beautiful, pretty outfit, with a cool look. The scene is illuminated by good lighting, captured as a pencil sketch.",
+   "novel": [
+    "illuminated",
+    "captured",
+    "pencil",
+    "sketch"
+   ],
+   "ms": 2716,
+   "t5in": 17,
+   "t5out": 40
+  },
+  {
+   "id": "too-long",
+   "input": "A detailed full-body illustration of two adventurers resting at a mountain pass. The first is a broad-shouldered woman in her forties with weathered olive skin, a strong jaw, a thin scar crossing her left eyebrow, deep-set hazel eyes and thick dark eyebrows. Her black hair is shaved on the sides and gathered on top into a short braided crest held by a copper ring. She wears a sleeveless quilted gambeson in faded crimson, laced at the sides with leather cords, over a long-sleeved linen undershirt rolled to the elbows. Her forearms are wrapped in stained cloth bandages and she has a small tattoo of three dots on the back of her right hand. A wide leather belt with a brass buckle carries a pouch, a coiled rope, a waterskin and a short curved knife in a worn sheath. Her trousers are dark brown wool, tucked into knee-high boots with reinforced toes and scuffed heels. Over her shoulders hangs a heavy grey wool cloak with a fur-lined collar, pinned at the chest with an iron brooch shaped like a wolf head. The second adventurer is a slender young man with pale freckled skin, a narrow face, large grey eyes, a slightly crooked nose and messy shoulder-length copper hair tied loosely at the nape. He wears round wire-rimmed spectacles, a dark green hooded tunic with embroidered silver vines along the hem and cuffs, fingerless leather gloves, a satchel crossed over his chest stuffed with rolled maps and quills, slim grey trousers and soft ankle boots. A small brass compass hangs from a chain around his neck. In the background, jagged snowy peaks rise under a pale sky with drifting clouds, a narrow stone path winds down into a valley of dark pine forests, a crumbling watchtower stands on a distant ridge, and a few ravens circle overhead. The light is cold and clear, late afternoon, with long blue shadows on the snow and a warm glow on the edges of the clouds. The woman sits on a flat boulder with her legs apart, elbows resting on her knees, holding the waterskin in both hands, while the man stands beside her leaning on a wooden staff, one hand on her shoulder, pointing toward the valley with the other and smiling.",
+   "skipped": "prosa",
+   "t5in": 590
+  }
+ ]
+}

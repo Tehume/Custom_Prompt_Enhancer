@@ -7,7 +7,10 @@ up down off out as is are was were be been being am has have had having do does 
 those there here it its he him his she her hers they them their theirs who whom whose which while
 where when one two other each both also very just then than so such some any all while
 wear wears wearing worn dressed scene shot shown seen set setting appear appears look looks
-stand stands sit sits lie lies hold holds image picture photo view behind front side`.split(/\s+/));
+stand stands sit sits lie lies hold holds image picture photo view behind front side
+feature features featuring depict depicts depicted show shows showing showcase showcasing
+capture captures capturing captured illuminate illuminated illuminates lit during
+place placed position positioned clearly visible`.split(/\s+/));
 
 export function stem(word) {
   let w = word.toLowerCase().replace(/['’]s$/, "");

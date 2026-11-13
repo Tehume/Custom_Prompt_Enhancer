@@ -57,3 +57,26 @@ solo**. Propuesta:
 
 Candidatos para seguir: **Qwen2.5 1.5B** (fidelidad, Apache-2.0) y **LFM2 1.2B** (velocidad,
 prosa). Pendiente probar LFM3 1.7B (publicado 27-10-2026) y medir en navegador con WebGPU.
+
+---
+
+# Ronda 2 (13-11-2026): reglas nuevas + prompt de sistema v2
+
+Cambios: las reglas resuelven antes negaciones, contradicciones y etiquetas booru; el prompt
+de sistema (v2, `js/llm/prompt.js`) ya no lleva ejemplos dentro de las reglas, sino dos
+ejemplos completos aparte; la app no pasa al LLM prompts que ya están en prosa o que superan
+350 tokens. Salidas en `docs/llm-eval/v2/`.
+
+| Modelo | s/prompt (CPU) | Resultado |
+|---|---|---|
+| LFM2 1.2B | ~4,8 | El mejor: prosa natural y fiel. Inventa poco (verbos de enlace); en un caso copia «sitting back to back» del ejemplo y en otro omite «white sneakers». |
+| Qwen2.5 1.5B | ~7,4 | Fiel, pero menos prosa (deja trozos de lista); pierde parte de la interacción en «couple» y cambia el sexo del bailarín. |
+| LFM2 700M | ~3,4 | Inventa bastante (flores, «around her neck…»). Solo como opción ligera. |
+| Qwen2.5 0.5B | ~6,6 | Descartado: entra en bucle y copia «pencil sketch» del ejemplo. |
+| LFM3 1.7B | — | No ejecutable: Transformers.js 4.3.1 no admite su arquitectura. |
+
+Conclusiones:
+- Con las reglas por delante, **LFM2 1.2B** da salidas utilizables; queda como predeterminado.
+- Los ejemplos del prompt de sistema aún se cuelan a veces: la marca de posibles invenciones
+  los detecta («sitting», «back», «pencil», «sketch»).
+- Las interacciones entre personas (manos, contacto) son lo que más se pierde: vigilar.
