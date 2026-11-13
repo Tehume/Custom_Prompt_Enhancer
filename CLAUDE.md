@@ -74,5 +74,15 @@ Entrada: prompt → salida: prompt mejorado, con diff frente al original y botó
   (inventan, no resuelven contradicciones ni negaciones). Candidatos: Qwen2.5-1.5B-Instruct
   y LFM2-1.2B. Laboratorio en el navegador: lab/llm.html.
 
+## Arquitectura acordada (tras la prueba de LLM)
+1. Reglas primero (deterministas): muletillas, pesos, negaciones con diccionario,
+   contradicciones, etiquetas booru → texto.
+2. LLM local opcional (descarga bajo demanda) solo para redactar en prosa; prompt de
+   sistema sin ejemplos contaminantes, con pocos ejemplos completos.
+3. Control posterior: marcar en el diff las palabras de contenido nuevas (posibles
+   invenciones) para aceptarlas o quitarlas.
+4. Prompts largos: no reescribirlos enteros (por frases o solo reordenar).
+
 ## Siguiente paso
-Pendiente de decidir con el usuario tras la prueba de LLM (ver docs/llm-eval.md).
+Reglas nuevas (negaciones, contradicciones, booru) e integración del LLM opcional.
+Pendiente: medir el laboratorio en el dispositivo del usuario (tablet).
