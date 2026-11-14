@@ -10,6 +10,7 @@ import { MODELS } from "./llm/prompt.js";
 import { novelWords } from "./llm/novelty.js";
 import { hasWebGPU, isLoaded, loadModel, rewrite, MAX_LLM_TOKENS } from "./llm/engine.js";
 import { suggest, addDescriptor, replacePhrase } from "./suggest.js";
+import { looksSpanish, translate, loadTranslator, translatorLoaded, MT_MB } from "./translate.js";
 
 const $ = id => document.getElementById(id);
 const el = (tag, props = {}, children = []) => {
@@ -153,7 +154,7 @@ function renderOutput() {
     : state.llm ? "Solo reglas (la redacción con IA es de una versión anterior: vuelve a redactar)."
     : "Solo reglas.";
 
-  const warnings = [...r.warnings];
+  const warnings = [...translationWarnings(), ...r.warnings];
   if (usingLLM() && state.llm.novel.length) {
     warnings.unshift({
       id: "novel",
@@ -214,6 +215,7 @@ function update() {
   renderMeter("out-meter", finalText());
   renderOutput();
   renderSuggestions();
+  renderTranslate();
   scheduleAutoLLM();
 }
 
@@ -300,6 +302,84 @@ async function runLLM() {
     update();
   }
 }
+
+// --- Traducción ES→EN ------------------------------------------------------------------
+
+const translation = { original: null, applied: [], busy: false };
+
+function renderTranslate() {
+  const input = $("input").value;
+  $("translate-box").hidden = !(translation.busy || looksSpanish(input));
+  if (!translation.busy) {
+    $("translate-msg").textContent = "Parece español. Los prompts funcionan mejor en inglés" +
+      (translatorLoaded() ? "." : ` (el traductor se descarga una vez, ~${MT_MB} MB).`);
+  }
+  const orig = $("translate-orig");
+  orig.hidden = translation.original === null;
+  if (translation.original !== null) {
+    $("orig-text").textContent = translation.original;
+    const how = { directo: "sustituido", corregido: "corregido", bien: "ya bien traducido", "sin corregir": "⚠ el traductor lo perdió: revísalo" };
+    const items = translation.applied.map(a => el("li", {}, [
+      el("code", { textContent: a.es }), " → " + a.en + " (" + how[a.how] + ")",
+    ]));
+    $("glossary-applied").replaceChildren(...(items.length ? items
+      : [el("li", { className: "empty", textContent: "Ningún término del glosario." })]));
+  }
+}
+
+async function runTranslate() {
+  if (translation.busy) return;
+  const original = $("input").value;
+  translation.busy = true;
+  $("translate-run").disabled = true;
+  const status = $("translate-status");
+  try {
+    if (!translatorLoaded()) {
+      status.textContent = "Descargando el traductor…";
+      await loadTranslator((a, b) => {
+        status.textContent = `Descargando el traductor: ${Math.round(a / 1e6)} / ${Math.round(b / 1e6)} MB`;
+      });
+    }
+    status.textContent = "Traduciendo…";
+    const r = await translate(original);
+    translation.original = original;
+    translation.applied = r.applied;
+    status.textContent = "";
+    $("input").value = r.text;
+    state.llm = null;
+    inputChanged();
+  } catch (e) {
+    console.error(e);
+    status.textContent = "Error al traducir: " + (e.message || e);
+  } finally {
+    translation.busy = false;
+    $("translate-run").disabled = false;
+    renderTranslate();
+  }
+}
+
+// Avisos propios de la traducción (se añaden a los de las reglas).
+function translationWarnings() {
+  if (translation.original === null) return [];
+  const w = [];
+  if (/\bsus?\b/i.test(translation.original)) {
+    w.push({ id: "tr-su", text: "El original usa «su/sus», que puede ser de él o de ella: revisa his/her/their en la traducción." });
+  }
+  const lost = translation.applied.filter(a => a.how === "sin corregir");
+  if (lost.length) {
+    w.push({ id: "tr-lost", text: "El traductor perdió o cambió: " + lost.map(a => "«" + a.es + "» (" + a.en + ")").join(", ") + ". Revísalo." });
+  }
+  return w;
+}
+
+$("translate-run").addEventListener("click", runTranslate);
+$("translate-restore").addEventListener("click", () => {
+  $("input").value = translation.original;
+  translation.original = null;
+  translation.applied = [];
+  state.llm = null;
+  inputChanged();
+});
 
 // --- Inicio ----------------------------------------------------------------------------
 

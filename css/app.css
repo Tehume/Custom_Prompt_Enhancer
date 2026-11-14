@@ -44,6 +44,7 @@
 }
 
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 
 body {
   margin: 0;
@@ -169,3 +170,10 @@ button.primary { background: var(--accent); color: var(--accent-text); border-co
 .chips { display: flex; flex-wrap: wrap; gap: 6px; }
 .chip { font-size: 0.85rem; padding: 4px 10px; border-radius: 999px; }
 .chip small { color: var(--muted); margin-left: 4px; }
+
+/* Traducción */
+.translate { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 10px; padding: 10px 12px;
+  background: var(--warn-bg); border: 1px solid var(--warn-border); border-radius: 8px; font-size: 0.9rem; }
+.translate-orig { margin-top: 10px; font-size: 0.9rem; }
+.translate-orig summary { cursor: pointer; color: var(--muted); }
+.orig-text { font: 13px/1.5 var(--mono); white-space: pre-wrap; overflow-wrap: anywhere; color: var(--muted); }

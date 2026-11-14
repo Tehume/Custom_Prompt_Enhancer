@@ -84,6 +84,13 @@ Entrada: prompt → salida: prompt mejorado, con diff frente al original y botó
 - Intensidad: Mínima (solo limpieza), Recomendada (todas las reglas), Máxima (además
   redacta con IA automáticamente si el modelo ya está descargado). Personalizada si se
   tocan las reglas a mano.
+- Traducción ES→EN (js/translate.js): OPUS-MT (Xenova/opus-mt-es-en, q8, ~110 MB, bajo
+  demanda) por segmentos/frases. Glosario propio (js/data/glossary.js): un segmento que es
+  solo un término se sustituye sin traducir; si no, se traduce el original y se corrigen
+  las traducciones erróneas conocidas (js/data/glossary-mt.js, generado con
+  tools/glossary_mt.mjs; regenerar al cambiar el glosario). NO mezclar inglés y español
+  en la entrada del traductor: produce basura. «your» → her/his/their.
+- WebGPU sin «shader-f16» (p. ej. algunas GPU): se usa q4 en vez de q4f16.
 - Publicación: GitHub Pages desde la rama de trabajo; repo público (temporalmente).
 
 ## Arquitectura acordada (tras la prueba de LLM)
@@ -97,4 +104,4 @@ Entrada: prompt → salida: prompt mejorado, con diff frente al original y botó
 
 ## Siguiente paso
 Medir en la tablet del usuario (Lenovo Idea Tab, Mali-G57, 8 GB, Android) con lab/llm.html.
-Después (MVP «después»): traducción ES→EN con glosario; variantes con sintaxis {a|b}.
+Después (MVP «después»): variantes con sintaxis {a|b} de Perchance.

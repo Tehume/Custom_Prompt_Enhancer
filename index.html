@@ -24,6 +24,17 @@
         </label>
       </div>
       <textarea id="input" spellcheck="false" placeholder="Escribe o pega tu prompt en inglés…"></textarea>
+      <div class="translate" id="translate-box" hidden>
+        <span id="translate-msg">Parece español. Los prompts funcionan mejor en inglés.</span>
+        <button type="button" class="primary" id="translate-run">Traducir al inglés</button>
+        <span class="status" id="translate-status" role="status"></span>
+      </div>
+      <details class="translate-orig" id="translate-orig" hidden>
+        <summary>Original en español y glosario aplicado</summary>
+        <p class="orig-text" id="orig-text"></p>
+        <ul class="changes" id="glossary-applied"></ul>
+        <button type="button" id="translate-restore">Restaurar el original</button>
+      </details>
       <div class="meter" id="in-meter"></div>
 
       <h3>Intensidad</h3>
