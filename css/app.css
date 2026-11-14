@@ -161,3 +161,11 @@ button.primary { background: var(--accent); color: var(--accent-text); border-co
 #llm-status { display: block; margin-top: 8px; min-height: 1.4em; }
 .novel { background: var(--soft); color: var(--soft-text); border-bottom: 2px dotted currentColor; border-radius: 3px; }
 .source-tag { font-size: 0.8rem; color: var(--muted); margin-top: 8px; }
+
+/* Intensidad y sugerencias */
+.levels { margin-bottom: 6px; flex-wrap: wrap; }
+.suggestion { margin-top: 10px; font-size: 0.9rem; }
+.suggestion > span { display: block; margin-bottom: 4px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font-size: 0.85rem; padding: 4px 10px; border-radius: 999px; }
+.chip small { color: var(--muted); margin-left: 4px; }

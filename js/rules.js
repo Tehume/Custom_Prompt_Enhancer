@@ -187,14 +187,14 @@ const contradictions = {
   },
 };
 
-// Ordena por importancia: sujeto, rasgos, pose, interacción, ropa, entorno, luz, cámara,
-// estilo. En listas mueve segmentos; en prosa solo lleva al final las frases de escena que
+// Ordena por importancia: sujeto, encuadre, rasgos, interacción, pose, ropa, entorno, luz,
+// cámara, estilo. En listas mueve segmentos; en prosa solo lleva al final las frases de escena que
 // no mencionan a nadie.
 const reorder = {
   id: "reorder",
   label: "Ordenar por importancia",
-  description: "Sujeto → rasgos → pose → interacción → ropa → entorno → luz → cámara → " +
-    "estilo. El final del prompt pesa menos.",
+  description: "Sujeto → encuadre → rasgos → interacción → pose → ropa → entorno → luz → " +
+    "cámara → estilo. El final del prompt pesa menos.",
   apply(text) {
     const changes = [];
     if (looksLikeProse(text)) {

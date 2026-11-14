@@ -78,7 +78,13 @@ Entrada: prompt → salida: prompt mejorado, con diff frente al original y botó
 - Orden por importancia (sujeto → encuadre → rasgos → interacción → pose → ropa → entorno →
   luz → cámara → estilo; en prosa solo mueve al final frases de escena) y ajuste a ~450
   tokens (en listas quita cámara/estilo del final; en prosa avisa).
-- Publicación: GitHub Pages desde la rama de trabajo, con el repo público temporalmente.
+- Sugerencias asistidas (js/suggest.js, js/data/descriptors.js): categorías que faltan
+  (encuadre, expresión, luz, entorno, cámara, estilo) y términos vagos («nice pose»…); se
+  aplican al prompt de entrada con un clic.
+- Intensidad: Mínima (solo limpieza), Recomendada (todas las reglas), Máxima (además
+  redacta con IA automáticamente si el modelo ya está descargado). Personalizada si se
+  tocan las reglas a mano.
+- Publicación: GitHub Pages desde la rama de trabajo; repo público (temporalmente).
 
 ## Arquitectura acordada (tras la prueba de LLM)
 1. Reglas primero (deterministas): muletillas, pesos, negaciones con diccionario,
@@ -91,4 +97,4 @@ Entrada: prompt → salida: prompt mejorado, con diff frente al original y botó
 
 ## Siguiente paso
 Medir en la tablet del usuario (Lenovo Idea Tab, Mali-G57, 8 GB, Android) con lab/llm.html.
-Después: descriptores por categoría (completar lo que falta) y nivel de intensidad.
+Después (MVP «después»): traducción ES→EN con glosario; variantes con sintaxis {a|b}.

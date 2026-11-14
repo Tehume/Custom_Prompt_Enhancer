@@ -9,6 +9,7 @@ import { looksLikeProse } from "./segments.js";
 import { MODELS } from "./llm/prompt.js";
 import { novelWords } from "./llm/novelty.js";
 import { hasWebGPU, isLoaded, loadModel, rewrite, MAX_LLM_TOKENS } from "./llm/engine.js";
+import { suggest, addDescriptor, replacePhrase } from "./suggest.js";
 
 const $ = id => document.getElementById(id);
 const el = (tag, props = {}, children = []) => {
@@ -17,8 +18,21 @@ const el = (tag, props = {}, children = []) => {
   return n;
 };
 
+// Niveles de intensidad: conjuntos de reglas. «Máxima» además redacta con la IA
+// automáticamente si el modelo ya está descargado.
+const ALL_RULES = RULES.map(r => r.id);
+const LEVELS = [
+  { id: "min", label: "Mínima", rules: ["weights", "fillers", "dedupe", "tidy"],
+    hint: "Solo limpia: pesos, muletillas, repeticiones y espacios. No cambia el orden ni el sentido." },
+  { id: "mid", label: "Recomendada", rules: ALL_RULES,
+    hint: "Todas las reglas: limpia, traduce etiquetas booru, pasa negaciones a positivo, resuelve contradicciones, ordena y ajusta la longitud." },
+  { id: "max", label: "Máxima", rules: ALL_RULES, autoLLM: true,
+    hint: "Como la recomendada y, además, redacta en prosa con la IA local cada vez que cambias el prompt (si ya has descargado el modelo con «Redactar»)." },
+];
+
 const state = {
-  enabled: new Set(RULES.map(r => r.id)),
+  level: "mid",
+  enabled: new Set(ALL_RULES),
   view: "result",
   counter: null,
   result: null, // salida de las reglas
@@ -32,6 +46,33 @@ function finalText() {
 }
 const usingLLM = () => !!state.llm && state.llm.source === state.result.text;
 
+// --- Intensidad ------------------------------------------------------------------------
+
+function levelFromRules() {
+  const same = l => l.rules.length === state.enabled.size && l.rules.every(id => state.enabled.has(id));
+  if (state.level === "max" && same(LEVELS[2])) return "max";
+  return (LEVELS.find(same) || { id: "custom" }).id;
+}
+
+function renderLevels() {
+  $("levels").replaceChildren(...LEVELS.map(l => {
+    const b = el("button", { type: "button", role: "radio", textContent: l.label });
+    b.setAttribute("aria-checked", String(state.level === l.id));
+    b.setAttribute("aria-selected", String(state.level === l.id));
+    b.addEventListener("click", () => {
+      state.level = l.id;
+      state.enabled = new Set(l.rules);
+      try { localStorage.setItem("level", l.id); } catch { /* ignorar */ }
+      renderLevels();
+      renderRules();
+      update();
+    });
+    return b;
+  }));
+  const l = LEVELS.find(x => x.id === state.level);
+  $("level-hint").textContent = l ? l.hint : "Personalizada: has cambiado las reglas a mano.";
+}
+
 // --- Reglas ----------------------------------------------------------------------------
 
 function renderRules() {
@@ -39,6 +80,8 @@ function renderRules() {
     const box = el("input", { type: "checkbox", checked: state.enabled.has(r.id) });
     box.addEventListener("change", () => {
       box.checked ? state.enabled.add(r.id) : state.enabled.delete(r.id);
+      state.level = levelFromRules();
+      renderLevels();
       update();
     });
     return el("li", {}, el("label", {}, [box, el("span", {}, [r.label, el("small", { textContent: r.description })])]));
@@ -132,12 +175,57 @@ function renderOutput() {
   $("llm-clear").hidden = !state.llm;
 }
 
+// --- Sugerencias -----------------------------------------------------------------------
+
+function applyToInput(newText) {
+  $("input").value = newText;
+  inputChanged();
+}
+
+function renderSuggestions() {
+  const list = suggest(state.result.text);
+  const box = $("suggestions");
+  if (!list.length) {
+    box.replaceChildren(el("p", { className: "hint", textContent: $("input").value.trim() ? "Nada que sugerir." : "" }));
+    return;
+  }
+  box.replaceChildren(...list.map(sg => {
+    const title = sg.kind === "vague"
+      ? `«${sg.phrase}» es vago (${sg.label}). Cámbialo por:`
+      : `Falta: ${sg.label.toLowerCase()}. Añade:`;
+    const chips = sg.options.map(o => {
+      const b = el("button", { type: "button", className: "chip", title: o.text }, [o.text, el("small", { textContent: o.label })]);
+      b.addEventListener("click", () => {
+        const input = $("input").value;
+        let next = sg.kind === "vague" ? replacePhrase(input, sg.phrase, o.text) : input;
+        if (next === input) next = addDescriptor(input, o.text);
+        applyToInput(next);
+      });
+      return b;
+    });
+    return el("div", { className: "suggestion" }, [el("span", { textContent: title }), el("div", { className: "chips" }, chips)]);
+  }));
+}
+
 function update() {
   const input = $("input").value;
   state.result = enhance(input, state.enabled, { counter: state.counter });
   renderMeter("in-meter", input);
   renderMeter("out-meter", finalText());
   renderOutput();
+  renderSuggestions();
+  scheduleAutoLLM();
+}
+
+// Intensidad máxima: redacta sola cuando el prompt deja de cambiar, si el modelo ya está.
+let autoTimer;
+function scheduleAutoLLM() {
+  clearTimeout(autoTimer);
+  if (state.level !== "max" || state.busy) return;
+  if (!isLoaded($("llm-model").value, $("llm-device").value)) return;
+  const src = state.result.text;
+  if (!src.trim() || (state.llm && state.llm.source === src) || looksLikeProse(src)) return;
+  autoTimer = setTimeout(runLLM, 1200);
 }
 
 function setView(view) {
@@ -249,6 +337,12 @@ $("copy").addEventListener("click", async () => {
   setTimeout(() => { $("copy-status").textContent = ""; }, 2000);
 });
 
+try {
+  const saved = localStorage.getItem("level");
+  const l = LEVELS.find(x => x.id === saved);
+  if (l) { state.level = l.id; state.enabled = new Set(l.rules); }
+} catch { /* sin almacenamiento */ }
+renderLevels();
 renderRules();
 setupLLM();
 update();
