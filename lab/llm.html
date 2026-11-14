@@ -55,15 +55,18 @@
   </main>
 
   <script type="module">
-    import { pipeline, TextStreamer } from "https://cdn.jsdelivr.net/npm/@huggingface/transformers@4.3.1/dist/transformers.min.js";
-    import { MODELS, SYSTEM, buildMessages, cleanOutput } from "../js/llm/prompt.js";
+    import { MODELS, SYSTEM } from "../js/llm/prompt.js";
+    import { hasWebGPU, supportsF16, loadModel, rewrite, isLoaded, currentDtype } from "../js/llm/engine.js";
     import { enhance } from "../js/pipeline.js";
     import { loadCounter } from "../js/tokens.js";
 
     const $ = id => document.getElementById(id);
     $("system").textContent = SYSTEM;
     for (const m of MODELS) $("model").append(new Option(`${m.label} (~${m.mb} MB, ${m.license})`, m.id));
-    if (!navigator.gpu) { $("device").value = "wasm"; $("device").options[0].disabled = true; }
+    if (!hasWebGPU()) { $("device").value = "wasm"; $("device").options[0].disabled = true; }
+    else if (!(await supportsF16())) {
+      $("device").options[0].text = "WebGPU (sin f16: descarga algo mayor)";
+    }
 
     const counter = await loadCounter(async p => (await fetch("../" + p)).json());
     const samples = await (await fetch("../samples/prompts.json")).json();
@@ -74,52 +77,36 @@
       e.target.value = "";
     });
 
-    let loaded = { key: null, gen: null };
-    async function getGenerator() {
-      const key = $("model").value + "|" + $("device").value;
-      if (loaded.key === key) return loaded.gen;
-      const files = {};
-      const gen = await pipeline("text-generation", $("model").value, {
-        device: $("device").value,
-        dtype: $("device").value === "webgpu" ? "q4f16" : "q4",
-        progress_callback: p => {
-          if (p.status === "progress" && p.total) {
-            files[p.file] = [p.loaded, p.total];
-            const [a, b] = Object.values(files).reduce((s, [l, t]) => [s[0] + l, s[1] + t], [0, 0]);
-            $("progress").textContent = `Descargando… ${Math.round(a / 1e6)} / ${Math.round(b / 1e6)} MB`;
-          }
-        },
+    async function ensureLoaded() {
+      const model = $("model").value;
+      const device = $("device").value;
+      if (isLoaded(model, device)) return;
+      $("progress").textContent = "Preparando el modelo…";
+      await loadModel(model, device, (a, b) => {
+        $("progress").textContent = `Descargando… ${Math.round(a / 1e6)} / ${Math.round(b / 1e6)} MB`;
       });
-      loaded = { key, gen };
-      return gen;
     }
 
-    async function rewrite(raw, title) {
-      const prompt = $("pre").checked ? enhance(raw).text : raw;
-      const gen = await getGenerator();
+    async function run(raw, title) {
+      const prompt = $("pre").checked ? enhance(raw, undefined, { counter }).text : raw;
+      await ensureLoaded();
       const li = document.createElement("li");
       const meta = document.createElement("div");
       const text = document.createElement("div");
       meta.className = "meta"; text.className = "text";
       li.append(meta, text);
       $("runs").prepend(li);
-      meta.textContent = `${title || "Entrada"} · ${$("model").selectedOptions[0].text} · generando…`;
-      let streamed = "";
+      const label = `${title || "Entrada"} · ${$("model").selectedOptions[0].text} · ${$("device").value}`;
+      meta.textContent = label + " · generando…";
       let n = 0;
       const t0 = performance.now();
-      const streamer = new TextStreamer(gen.tokenizer, {
-        skip_prompt: true,
-        skip_special_tokens: true,
-        callback_function: t => { streamed += t; n++; text.textContent = streamed; },
+      const result = await rewrite($("model").value, $("device").value, prompt, partial => {
+        n++; text.textContent = partial;
       });
-      const out = await gen(buildMessages($("model").value, prompt), {
-        max_new_tokens: 320, do_sample: false, repetition_penalty: 1.05, streamer,
-      });
-      const result = cleanOutput(out[0].generated_text.at(-1).content);
       const secs = (performance.now() - t0) / 1000;
       text.textContent = result;
-      meta.textContent = `${title || "Entrada"} · ${$("model").selectedOptions[0].text} · ` +
-        `${secs.toFixed(1)} s · ~${(n / secs).toFixed(1)} tok/s · T5: ${counter.count(prompt)} → ${counter.count(result)}`;
+      meta.textContent = `${label} (${currentDtype()}) · ${secs.toFixed(1)} s · ~${(n / secs).toFixed(1)} tok/s · ` +
+        `T5: ${counter.count(prompt)} → ${counter.count(result)}`;
     }
 
     async function guarded(fn) {
@@ -130,12 +117,12 @@
     }
 
     $("run").addEventListener("click", () => guarded(async () => {
-      if ($("input").value.trim()) await rewrite($("input").value);
+      if ($("input").value.trim()) await run($("input").value);
     }));
     $("run-all").addEventListener("click", () => guarded(async () => {
       for (const s of samples) {
         $("progress").textContent = "Ejemplo: " + s.title;
-        await rewrite(s.prompt, s.title);
+        await run(s.prompt, s.title);
       }
     }));
   </script>
