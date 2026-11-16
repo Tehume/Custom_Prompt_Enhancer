@@ -42,6 +42,11 @@ narrativa, controlar la longitud en tokens y (opcional) traducir de español a i
   con seguridad (no se sabe si el modelo usa CLIP).
 - Tokenizador T5 de referencia: el de ComfyUI (ver Custom_Image_Generator/tools/t5_tokens.py).
 - Prompt negativo: existe en el plugin pero rinde peor; priorizar reformular en positivo.
+  Decisión (16-11-2026): la app NO genera prompt negativo.
+- Modelo exacto: un hilo del foro (lemmy.world) habla de «Chroma Radiance»; sin verificar
+  (lemmy.world no accesible desde el entorno). Si se confirma: mismo T5 (contador y límites
+  válidos), sin CLIP; revisar si las etiquetas «aesthetic» tienen efecto antes de tocar la
+  regla de muletillas.
 - Objetivo prioritario: ENHANCER (entrada → prompt mejorado). El análisis es apoyo,
   no el producto.
 - Listas de descriptores desde cero; Custom_Image_Generator solo como referencia,
